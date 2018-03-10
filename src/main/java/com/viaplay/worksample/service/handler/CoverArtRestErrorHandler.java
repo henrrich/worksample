@@ -1,0 +1,34 @@
+package com.viaplay.worksample.service.handler;
+
+import com.viaplay.worksample.exception.CoverArtNotFoundException;
+import com.viaplay.worksample.unit.util.RestErrorUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.client.ClientHttpResponse;
+import org.springframework.web.client.ResponseErrorHandler;
+
+import java.io.IOException;
+
+public class CoverArtRestErrorHandler implements ResponseErrorHandler {
+
+    private static final Logger logger = LoggerFactory.getLogger(CoverArtRestErrorHandler.class);
+
+    @Override
+    public boolean hasError(ClientHttpResponse clientHttpResponse) throws IOException {
+        return RestErrorUtil.isError(clientHttpResponse.getStatusCode());
+    }
+
+    @Override
+    public void handleError(ClientHttpResponse clientHttpResponse) throws IOException {
+        HttpStatus statusCode = clientHttpResponse.getStatusCode();
+        String statusText = clientHttpResponse.getStatusText();
+        logger.error("Response error: {} {}", statusCode, statusText);
+        switch (statusCode) {
+            case NOT_FOUND:
+                throw new CoverArtNotFoundException(statusText);
+            default:
+                throw new RuntimeException(statusText);
+        }
+    }
+}

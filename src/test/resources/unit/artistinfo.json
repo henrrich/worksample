@@ -1,0 +1,94 @@
+{
+  "area": {
+    "name": "United States",
+    "sort-name": "United States",
+    "iso-3166-1-codes": [
+      "US"
+    ],
+    "id": "489ce91b-6658-3307-9877-795b68554c98",
+    "disambiguation": ""
+  },
+  "life-span": {
+    "end": null,
+    "ended": false,
+    "begin": "1981-10"
+  },
+  "gender-id": null,
+  "ipis": [],
+  "release-groups": [
+    {
+      "disambiguation": "",
+      "first-release-date": "1991-08-13",
+      "primary-type": "Album",
+      "id": "09464c93-bd43-4642-ab85-3c600d601390",
+      "primary-type-id": "f529b476-6e62-324f-b0aa-1f3e33d313fc",
+      "secondary-type-ids": [],
+      "secondary-types": [],
+      "title": "Black Album"
+    },
+    {
+      "title": "Ride the Lightning",
+      "secondary-types": [],
+      "primary-type-id": "f529b476-6e62-324f-b0aa-1f3e33d313fc",
+      "primary-type": "Album",
+      "id": "0da580f2-6768-498f-af9d-2becaddf15e0",
+      "first-release-date": "1984-07-30",
+      "disambiguation": "",
+      "secondary-type-ids": []
+    }
+  ],
+  "sort-name": "Metallica",
+  "type": "Group",
+  "type-id": "e431f5f6-b5d2-343d-8b36-72607fffb74b",
+  "relations": [
+    {
+      "source-credit": "",
+      "url": {
+        "id": "d877c8d3-4cde-4f85-90e7-e43b47f27dca",
+        "resource": "https://bandsintown.com/metallica"
+      },
+      "target-credit": "",
+      "attributes": [],
+      "end": null,
+      "type-id": "ea45ed3d-2d5e-456e-8c32-94b6f51426e2",
+      "type": "bandsintown",
+      "target-type": "url",
+      "attribute-values": {},
+      "begin": null,
+      "ended": false,
+      "direction": "forward"
+    },
+    {
+      "source-credit": "",
+      "url": {
+        "resource": "https://www.discogs.com/artist/15885",
+        "id": "50d18a46-4f07-422c-8274-427a57d403ed"
+      },
+      "target-credit": "",
+      "end": null,
+      "attributes": [],
+      "type-id": "04a5b104-a4c2-4bac-99a1-7b837c37d9e4",
+      "target-type": "url",
+      "type": "discogs",
+      "attribute-values": {},
+      "begin": null,
+      "ended": false,
+      "direction": "forward"
+    }
+  ],
+  "name": "Metallica",
+  "begin_area": {
+    "disambiguation": "",
+    "id": "1f40c6e1-47ba-4e35-996f-fe6ee5840e62",
+    "sort-name": "Los Angeles",
+    "name": "Los Angeles"
+  },
+  "gender": null,
+  "country": "US",
+  "isnis": [
+    "0000000122939631"
+  ],
+  "end_area": null,
+  "disambiguation": "",
+  "id": "65f4f0c5-ef9e-490c-aee3-909e7ae6b2ab"
+}

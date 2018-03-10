@@ -1,0 +1,50 @@
+{
+  "profile": "American singer",
+  "urls": [
+    "http://www.michaeljackson.com"
+  ],
+  "releases_url": "https://api.discogs.com/artists/15885/releases",
+  "name": "Michael Jackson",
+  "uri": "https://www.discogs.com/artist/15885-Michael-Jackson",
+  "realname": "Michael Joseph Jackson",
+  "groups": [
+    {
+      "active": true,
+      "resource_url": "https://api.discogs.com/artists/41157",
+      "id": 41157,
+      "name": "The Jackson 5"
+    }
+  ],
+  "images": [
+    {
+      "uri": "",
+      "height": 607,
+      "width": 600,
+      "resource_url": "",
+      "type": "primary",
+      "uri150": ""
+    },
+    {
+      "uri": "",
+      "height": 535,
+      "width": 600,
+      "resource_url": "",
+      "type": "secondary",
+      "uri150": ""
+    }
+  ],
+  "resource_url": "https://api.discogs.com/artists/15885",
+  "aliases": [
+    {
+      "resource_url": "https://api.discogs.com/artists/470023",
+      "id": 470023,
+      "name": "W.A. Mozart"
+    }
+  ],
+  "id": 15885,
+  "data_quality": "Needs Vote",
+  "namevariations": [
+    "J.Jackson",
+    "Jacko"
+  ]
+}
