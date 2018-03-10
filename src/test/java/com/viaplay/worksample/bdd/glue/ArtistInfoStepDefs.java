@@ -14,6 +14,8 @@ import java.io.File;
 import java.io.IOException;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static net.javacrumbs.jsonunit.JsonAssert.*;
+import static net.javacrumbs.jsonunit.core.Option.*;
 
 public class ArtistInfoStepDefs extends WorkSampleSystemTest {
 
@@ -35,7 +37,7 @@ public class ArtistInfoStepDefs extends WorkSampleSystemTest {
     public void theResponseBodyIsIdenticalToTheExpectedJson(String file) throws Throwable {
         ArtistInfoDto expected = loadJsonStringFromFile(file, ArtistInfoDto.class);
 
-        assertThat(mapper.writeValueAsString(response.getBody())).isEqualTo(mapper.writeValueAsString(expected));
+        assertJsonEquals(response.getBody(), expected, when(IGNORING_ARRAY_ORDER));
     }
 
     @When("^the client calls api GET \"([^\"]*)\" with \"([^\"]*)\" that does not exist$")

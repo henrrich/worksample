@@ -4,28 +4,40 @@ import com.viaplay.worksample.domain.model.AlbumCoverArt;
 import com.viaplay.worksample.exception.CoverArtNotFoundException;
 import com.viaplay.worksample.service.CoverArtArchiveService;
 import com.viaplay.worksample.service.handler.CoverArtRestErrorHandler;
+import com.viaplay.worksample.util.ApiUrlConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+
+import java.util.concurrent.CompletableFuture;
 
 @Service
 public class CoverArtArchiveServiceImpl implements CoverArtArchiveService {
 
     private static final Logger logger = LoggerFactory.getLogger(CoverArtArchiveServiceImpl.class);
 
-    private static final String COVERARTARCHIVE_ALBUM_URL = "http://coverartarchive.org/release-group/";
+    @Autowired
+    private ApiUrlConfig apiUrlConfig;
 
-    private RestTemplate restTemplate = new RestTemplate();
+    private RestTemplate restTemplate;
+
+    public CoverArtArchiveServiceImpl(RestTemplateBuilder restTemplateBuilder) {
+        this.restTemplate = restTemplateBuilder.build();
+    }
 
     @Override
-    public AlbumCoverArt getAlbumCoverArt(String mbid) {
+    @Async
+    public CompletableFuture<AlbumCoverArt> getAlbumCoverArt(String mbid) {
 
         restTemplate.setErrorHandler(new CoverArtRestErrorHandler());
 
         AlbumCoverArt albumCoverArt = null;
         try {
-            albumCoverArt = restTemplate.getForObject(COVERARTARCHIVE_ALBUM_URL + mbid, AlbumCoverArt.class);
+            albumCoverArt = restTemplate.getForObject(apiUrlConfig.getApiBaseUrlCoverArtArchive() + "release-group/" + mbid, AlbumCoverArt.class);
         } catch (RuntimeException e) {
             if (e instanceof CoverArtNotFoundException) {
                 logger.warn("Cover art of album with MBID " + mbid + " not found!");
@@ -35,6 +47,6 @@ public class CoverArtArchiveServiceImpl implements CoverArtArchiveService {
             albumCoverArt = new AlbumCoverArt();
         }
 
-        return albumCoverArt;
+        return CompletableFuture.completedFuture(albumCoverArt);
     }
 }

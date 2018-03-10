@@ -2,7 +2,9 @@ package com.viaplay.worksample.service;
 
 import com.viaplay.worksample.domain.model.AlbumCoverArt;
 
+import java.util.concurrent.CompletableFuture;
+
 public interface CoverArtArchiveService {
 
-    AlbumCoverArt getAlbumCoverArt(String mbid);
+    CompletableFuture<AlbumCoverArt> getAlbumCoverArt(String mbid);
 }

@@ -4,7 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.viaplay.worksample.exception.ArtistNotFoundException;
 import com.viaplay.worksample.exception.RateLimitingException;
-import com.viaplay.worksample.unit.util.UriUtil;
+import com.viaplay.worksample.util.UriUtil;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

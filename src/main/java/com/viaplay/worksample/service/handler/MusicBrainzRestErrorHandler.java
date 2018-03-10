@@ -2,7 +2,7 @@ package com.viaplay.worksample.service.handler;
 
 import com.viaplay.worksample.exception.ArtistNotFoundException;
 import com.viaplay.worksample.exception.RateLimitingException;
-import com.viaplay.worksample.unit.util.RestErrorUtil;
+import com.viaplay.worksample.util.RestErrorUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;

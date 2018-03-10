@@ -46,4 +46,5 @@ public class AlbumDto implements Serializable {
     public void addImage(String image) {
         this.images.add(image);
     }
+
 }

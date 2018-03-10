@@ -1,4 +1,4 @@
-package com.viaplay.worksample.unit.util;
+package com.viaplay.worksample.util;
 
 public class UriUtil {
 

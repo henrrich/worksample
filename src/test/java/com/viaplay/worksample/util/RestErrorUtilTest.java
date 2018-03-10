@@ -1,4 +1,4 @@
-package com.viaplay.worksample.unit.util;
+package com.viaplay.worksample.util;
 
 import org.junit.Test;
 import org.springframework.http.HttpStatus;

@@ -21,6 +21,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.concurrent.CompletableFuture;
 
 import static org.hamcrest.Matchers.*;
 import static org.mockito.BDDMockito.given;
@@ -62,10 +63,10 @@ public class ArtistInfoControllerTest {
         String albumMbid1 = "09464c93-bd43-4642-ab85-3c600d601390";
         String albumMbid2 = "0da580f2-6768-498f-af9d-2becaddf15e0";
         given(artistService.getArtistInfo(artistMbid)).willReturn(artist);
-        given(artistService.getProfileDescriptionForArtist(profileId)).willReturn(profile.getProfile());
+        given(artistService.getProfileDescriptionForArtist(profileId)).willReturn(CompletableFuture.completedFuture(profile));
 
-        given(coverArtArchiveService.getAlbumCoverArt(albumMbid1)).willReturn(albumCoverArt);
-        given(coverArtArchiveService.getAlbumCoverArt(albumMbid2)).willReturn(new AlbumCoverArt());
+        given(coverArtArchiveService.getAlbumCoverArt(albumMbid1)).willReturn(CompletableFuture.completedFuture(albumCoverArt));
+        given(coverArtArchiveService.getAlbumCoverArt(albumMbid2)).willReturn(CompletableFuture.completedFuture(new AlbumCoverArt()));
 
         mockMvc.perform(get("/api/v1/artistinfo/" + artistMbid))
                 .andExpect(status().isOk())
@@ -73,12 +74,10 @@ public class ArtistInfoControllerTest {
                 .andExpect(jsonPath("$.mbid", is(artistMbid)))
                 .andExpect(jsonPath("$.description", is("American singer")))
                 .andExpect(jsonPath("$.albums", hasSize(2)))
-                .andExpect(jsonPath("$.albums[0].id", is(albumMbid1)))
-                .andExpect(jsonPath("$.albums[0].title", is("Black Album")))
-                .andExpect(jsonPath("$.albums[0].images", contains("http://coverartarchive.org/release/2529f558-970b-33d2-a42c-41ab15a970c6/8202912235.jpg")))
-                .andExpect(jsonPath("$.albums[1].id", is(albumMbid2)))
-                .andExpect(jsonPath("$.albums[1].title", is("Ride the Lightning")))
-                .andExpect(jsonPath("$.albums[1].images", hasSize(0)));
+                .andExpect(jsonPath("$.albums[*].id", containsInAnyOrder(albumMbid1, albumMbid2)))
+                .andExpect(jsonPath("$.albums[*].title", containsInAnyOrder("Black Album", "Ride the Lightning")))
+                .andExpect(jsonPath("$.albums[*].images[*]", containsInAnyOrder("http://coverartarchive.org/release/2529f558-970b-33d2-a42c-41ab15a970c6/8202912235.jpg")))
+                .andExpect(jsonPath("$.albums[*].images[*]", hasSize(1)));
     }
 
     @Test

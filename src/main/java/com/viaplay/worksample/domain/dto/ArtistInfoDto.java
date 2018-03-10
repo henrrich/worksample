@@ -46,4 +46,5 @@ public class ArtistInfoDto implements Serializable {
     public void addAlbum(AlbumDto album) {
         this.albums.add(album);
     }
+
 }
