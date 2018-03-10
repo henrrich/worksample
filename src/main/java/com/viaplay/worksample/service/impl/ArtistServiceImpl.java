@@ -12,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -33,6 +34,7 @@ public class ArtistServiceImpl implements ArtistService {
     }
 
     @Override
+    @Cacheable("artist")
     public Artist getArtistInfo(String mbid) {
         restTemplate.setErrorHandler(new MusicBrainzRestErrorHandler());
         Artist artist = restTemplate.getForObject(apiUrlConfig.getApiBaseUrlMusicBrainz() + "artist/" + mbid + "?&fmt=json&inc=url-rels+release-groups", Artist.class);
@@ -42,6 +44,7 @@ public class ArtistServiceImpl implements ArtistService {
 
     @Override
     @Async
+    @Cacheable("profile")
     public CompletableFuture<ArtistProfile> getProfileDescriptionForArtist(String id) {
         restTemplate.setErrorHandler(new DiscogsRestErrorHandler());
 

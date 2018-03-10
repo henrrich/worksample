@@ -27,10 +27,18 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(value = { RateLimitingException.class })
     protected ResponseEntity<Object> handleRateLimitingException(RuntimeException ex, WebRequest request) throws Exception {
-        String message = "Hit rate limit for MusicBrainz server (around 1 request per second), please try again.";
+        String message = ex.getMessage();
         String bodyOfResponse = getErrorResponseBodyInJson(HttpStatus.SERVICE_UNAVAILABLE, message);
         return handleExceptionInternal(ex, bodyOfResponse,
                 new HttpHeaders(), HttpStatus.SERVICE_UNAVAILABLE, request);
+    }
+
+    @ExceptionHandler(value = { RuntimeException.class })
+    protected ResponseEntity<Object> handleRuntimeException(RuntimeException ex, WebRequest request) throws Exception {
+        String message = ex.getMessage();
+        String bodyOfResponse = getErrorResponseBodyInJson(HttpStatus.INTERNAL_SERVER_ERROR, message);
+        return handleExceptionInternal(ex, bodyOfResponse,
+                new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR, request);
     }
 
     private String getErrorResponseBodyInJson(HttpStatus status, String message) throws JsonProcessingException {

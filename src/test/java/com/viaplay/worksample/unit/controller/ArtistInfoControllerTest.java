@@ -92,4 +92,17 @@ public class ArtistInfoControllerTest {
                 .andExpect(jsonPath("$.code", is(HttpStatus.NOT_FOUND.value())))
                 .andExpect(jsonPath("$.message", is("Artist with MBID " + artistMbid + " not found!")));
     }
+
+    @Test
+    public void testGetArtistInfoInternalServerError() throws Exception {
+
+        String artistMbid = "65f4f0c5-ef9e-490c-aee3-909e7ae6b2ab";
+        given(artistService.getArtistInfo(artistMbid)).willThrow(new RuntimeException("Failed to access external api."));
+
+        mockMvc.perform(get("/api/v1/artistinfo/" + artistMbid))
+                .andExpect(status().isInternalServerError())
+                .andExpect(content().contentType("application/json;charset=UTF-8"))
+                .andExpect(jsonPath("$.code", is(HttpStatus.INTERNAL_SERVER_ERROR.value())))
+                .andExpect(jsonPath("$.message", is("Failed to access external api.")));
+    }
 }
