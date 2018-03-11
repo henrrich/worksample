@@ -1,13 +1,16 @@
 package com.viaplay.worksample.controller;
 
+import com.google.common.util.concurrent.RateLimiter;
 import com.viaplay.worksample.domain.dto.AlbumDto;
 import com.viaplay.worksample.domain.dto.ArtistInfoDto;
 import com.viaplay.worksample.domain.model.AlbumCoverArt;
 import com.viaplay.worksample.domain.model.Artist;
 import com.viaplay.worksample.domain.model.ArtistProfile;
+import com.viaplay.worksample.exception.RateLimitingException;
 import com.viaplay.worksample.service.ArtistService;
 import com.viaplay.worksample.service.CoverArtArchiveService;
 import com.viaplay.worksample.util.UriUtil;
+import com.viaplay.worksample.util.throttling.RateLimitHandler;
 import com.viaplay.worksample.util.validator.ValidMBID;
 import io.swagger.annotations.*;
 import org.slf4j.Logger;
@@ -43,6 +46,9 @@ public class ArtistInfoController {
     @Autowired
     private CoverArtArchiveService coverArtArchiveService;
 
+    @Autowired
+    private RateLimitHandler rateLimitHandler;
+
     @GetMapping("/artistinfo/{mbid}")
     @ApiOperation(value = "Get artist information by MBID",
             response = ArtistInfoDto.class)
@@ -58,6 +64,8 @@ public class ArtistInfoController {
                                                              @PathVariable(value = "mbid", required = true)
                                                                      String mbid) throws Exception {
         logger.info("Fetching information of artist with MBID {}", mbid);
+
+        rateLimitHandler.checkPermit();
 
         Artist artist = artistService.getArtistInfo(mbid);
 

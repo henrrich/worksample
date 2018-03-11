@@ -6,9 +6,11 @@ import com.viaplay.worksample.domain.model.AlbumCoverArt;
 import com.viaplay.worksample.domain.model.Artist;
 import com.viaplay.worksample.domain.model.ArtistProfile;
 import com.viaplay.worksample.exception.ArtistNotFoundException;
+import com.viaplay.worksample.exception.RateLimitingException;
 import com.viaplay.worksample.service.ArtistService;
 import com.viaplay.worksample.service.CoverArtArchiveService;
 import com.viaplay.worksample.unit.service.ArtistServiceTest;
+import com.viaplay.worksample.util.throttling.RateLimitHandler;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -25,6 +27,7 @@ import java.util.concurrent.CompletableFuture;
 
 import static org.hamcrest.Matchers.*;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.BDDMockito.willThrow;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -42,6 +45,9 @@ public class ArtistInfoControllerTest {
 
     @MockBean
     private CoverArtArchiveService coverArtArchiveService;
+
+    @MockBean
+    private RateLimitHandler rateLimitHandler;
 
     private static Artist artist;
     private static ArtistProfile profile;
@@ -109,6 +115,23 @@ public class ArtistInfoControllerTest {
                 .andExpect(jsonPath("$.status", is(HttpStatus.INTERNAL_SERVER_ERROR.value())))
                 .andExpect(jsonPath("$.error", is(HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase())))
                 .andExpect(jsonPath("$.message", is("Failed to access external api.")))
+                .andExpect(jsonPath("$.path", is(ARTISTINFO_URL + artistMbid)));
+    }
+
+    @Test
+    public void testGetArtistInfoRateLimitReached() throws Exception {
+
+        String artistMbid = "65f4f0c5-ef9e-490c-aee3-909e7ae6b2ab";
+        String errorMsg = "Reached rate limit " + rateLimitHandler.getRateLimitPerSec() + " request per second!";
+        willThrow(new RateLimitingException(errorMsg)).given(rateLimitHandler).checkPermit();
+
+        mockMvc.perform(get(ARTISTINFO_URL + artistMbid))
+                .andExpect(status().isServiceUnavailable())
+                .andExpect(content().contentType("application/json;charset=UTF-8"))
+                .andExpect(header().string("X-RateLimit-Limit", String.valueOf(rateLimitHandler.getRateLimitPerSec())))
+                .andExpect(jsonPath("$.status", is(HttpStatus.SERVICE_UNAVAILABLE.value())))
+                .andExpect(jsonPath("$.error", is(HttpStatus.SERVICE_UNAVAILABLE.getReasonPhrase())))
+                .andExpect(jsonPath("$.message", is(errorMsg)))
                 .andExpect(jsonPath("$.path", is(ARTISTINFO_URL + artistMbid)));
     }
 }

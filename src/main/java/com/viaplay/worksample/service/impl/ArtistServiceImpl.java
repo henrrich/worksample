@@ -1,5 +1,6 @@
 package com.viaplay.worksample.service.impl;
 
+import com.google.common.util.concurrent.RateLimiter;
 import com.viaplay.worksample.domain.model.Artist;
 import com.viaplay.worksample.domain.model.ArtistProfile;
 import com.viaplay.worksample.exception.ArtistNotFoundException;

@@ -5,6 +5,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.viaplay.worksample.exception.ArtistNotFoundException;
 import com.viaplay.worksample.exception.RateLimitingException;
 import com.viaplay.worksample.util.UriUtil;
+import com.viaplay.worksample.util.throttling.RateLimitHandler;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +21,9 @@ import java.util.Set;
 
 @ControllerAdvice
 public class RestExceptionHandler extends ResponseEntityExceptionHandler {
+
+    @Autowired
+    RateLimitHandler rateLimitHandler;
 
     @ExceptionHandler(value = { ArtistNotFoundException.class })
     protected ResponseEntity<Object> handleArtistNotFoundException(RuntimeException ex, WebRequest request) throws Exception {
@@ -35,8 +40,10 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         String message = ex.getMessage();
         String uri = UriUtil.getRequestUri(request);
         String bodyOfResponse = getErrorResponseBodyInJson(HttpStatus.SERVICE_UNAVAILABLE, message, uri);
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.add("X-RateLimit-Limit", String.valueOf(rateLimitHandler.getRateLimitPerSec()));
         return handleExceptionInternal(ex, bodyOfResponse,
-                new HttpHeaders(), HttpStatus.SERVICE_UNAVAILABLE, request);
+                httpHeaders, HttpStatus.SERVICE_UNAVAILABLE, request);
     }
 
     @ExceptionHandler(value = { RuntimeException.class })
