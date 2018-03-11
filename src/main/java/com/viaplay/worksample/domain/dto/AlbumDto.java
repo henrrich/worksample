@@ -1,13 +1,22 @@
 package com.viaplay.worksample.domain.dto;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
 import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
 
+@ApiModel( description = "Representing an album with id, title and a list of links to cover art images")
 public class AlbumDto implements Serializable {
 
+    @ApiModelProperty(value = "release group MBID of the album")
     private String id;
+
+    @ApiModelProperty(value = "title of the album")
     private String title;
+
+    @ApiModelProperty(value = "A list of links to albums' cover art images", allowEmptyValue = true)
     private List<String> images;
 
     public AlbumDto() {

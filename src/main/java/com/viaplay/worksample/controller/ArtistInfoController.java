@@ -5,13 +5,16 @@ import com.viaplay.worksample.domain.dto.ArtistInfoDto;
 import com.viaplay.worksample.domain.model.AlbumCoverArt;
 import com.viaplay.worksample.domain.model.Artist;
 import com.viaplay.worksample.domain.model.ArtistProfile;
+import com.viaplay.worksample.exception.handler.ErrorResponseBody;
 import com.viaplay.worksample.service.ArtistService;
 import com.viaplay.worksample.service.CoverArtArchiveService;
 import com.viaplay.worksample.util.UriUtil;
 import com.viaplay.worksample.util.validator.ValidMBID;
+import io.swagger.annotations.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -31,6 +34,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping(value = "/api/v1", produces = "application/json")
 @Validated
+@Api(value = "/artistinfo", description = "Operations to fetch artist information", produces = "application/json")
 public class ArtistInfoController {
 
     public static final Logger logger = LoggerFactory.getLogger(ArtistInfoController.class);
@@ -42,7 +46,19 @@ public class ArtistInfoController {
     private CoverArtArchiveService coverArtArchiveService;
 
     @GetMapping("/artistinfo/{mbid}")
-    public ResponseEntity<ArtistInfoDto> getArtistInfoByMBID(@ValidMBID @PathVariable(value = "mbid", required = true) String mbid) throws Exception {
+    @ApiOperation(value = "Get artist information by MBID",
+            response = ArtistInfoDto.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, response = ArtistInfoDto.class, message = "Get artist information successfully including artist description and released albums with cover arts."),
+            @ApiResponse(code = 400, message = "Bad Request. Invalid MBID format."),
+            @ApiResponse(code = 404, message = "Artist not found."),
+            @ApiResponse(code = 500, message = "Internal server error"),
+            @ApiResponse(code = 503, message = "API rate limit reached.")
+    })
+    public ResponseEntity<ArtistInfoDto> getArtistInfoByMBID(@ApiParam(value = "artist MBID in UUID format\ne.g. 65f4f0c5-ef9e-490c-aee3-909e7ae6b2ab", required = true)
+                                                             @ValidMBID
+                                                             @PathVariable(value = "mbid", required = true)
+                                                                     String mbid) throws Exception {
         logger.info("Fetching information of artist with MBID {}", mbid);
 
         Artist artist = artistService.getArtistInfo(mbid);
@@ -60,18 +76,18 @@ public class ArtistInfoController {
         Map<String, CompletableFuture<AlbumCoverArt>> futures = new HashMap<>();
         Map<String, AlbumDto> albumsMap = new HashMap<>();
         artist.getReleaseGroups().stream()
-                .filter( releaseGroup -> "Album".equals(releaseGroup.getPrimaryType()) )
-                .forEach( album -> {
+                .filter(releaseGroup -> "Album".equals(releaseGroup.getPrimaryType()))
+                .forEach(album -> {
                     String albumId = album.getId();
                     AlbumDto albumDto = new AlbumDto(albumId, album.getTitle());
                     albumsMap.put(albumId, albumDto);
                     CompletableFuture<AlbumCoverArt> albumCoverArtFuture = coverArtArchiveService.getAlbumCoverArt(album.getId());
                     futures.put(albumId, albumCoverArtFuture);
-                } );
+                });
 
         CompletableFuture.allOf(futures.values().toArray(new CompletableFuture[futures.size()])).join();
 
-        futures.forEach( (albumId, future) -> {
+        futures.forEach((albumId, future) -> {
             try {
                 AlbumDto albumDto = albumsMap.get(albumId);
                 future.get().getImages().stream().forEach(image -> albumDto.addImage(image.getImage()));
