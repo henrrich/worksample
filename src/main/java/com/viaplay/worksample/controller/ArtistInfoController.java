@@ -65,13 +65,10 @@ public class ArtistInfoController {
 
         String artistIdInDiscogs = getArtistIdInDiscogs(artist);
 
-        String description = null;
+        CompletableFuture<ArtistProfile> profileFuture = null;
         if (artistIdInDiscogs != null) {
-            CompletableFuture<ArtistProfile> profileFuture = artistService.getProfileDescriptionForArtist(artistIdInDiscogs);
-            description = profileFuture.get().getProfile();
+            profileFuture = artistService.getProfileDescriptionForArtist(artistIdInDiscogs);
         }
-
-        ArtistInfoDto artistInfoDto = new ArtistInfoDto(mbid, description);
 
         Map<String, CompletableFuture<AlbumCoverArt>> futures = new HashMap<>();
         Map<String, AlbumDto> albumsMap = new HashMap<>();
@@ -87,6 +84,8 @@ public class ArtistInfoController {
 
         CompletableFuture.allOf(futures.values().toArray(new CompletableFuture[futures.size()])).join();
 
+        ArtistProfile profile = profileFuture.get();
+        ArtistInfoDto artistInfoDto = new ArtistInfoDto(mbid, profile != null ? profile.getProfile() : null);
         futures.forEach((albumId, future) -> {
             try {
                 AlbumDto albumDto = albumsMap.get(albumId);

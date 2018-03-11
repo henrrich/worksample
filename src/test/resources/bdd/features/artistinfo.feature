@@ -9,6 +9,8 @@ Feature: User can fetch artist profile and cover arts of all albums
     Examples:
       | artist id                            | file               |
       | 65f4f0c5-ef9e-490c-aee3-909e7ae6b2ab | bdd/metallica.json |
+      | 5b11f4ce-a62d-471e-81fc-a69a8278c7da | bdd/nirvana.json |
+      | 410c9baf-5469-44f6-9852-826524b80c61 | bdd/autechre.json |
 
   @negative
   Scenario Outline: client makes call to GET /artistinfo/ with artist id that does not exist
