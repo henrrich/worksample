@@ -1,4 +1,4 @@
-package com.viaplay.worksample.util;
+package com.viaplay.worksample.util.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;

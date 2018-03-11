@@ -7,7 +7,7 @@ import com.viaplay.worksample.exception.ArtistNotFoundException;
 import com.viaplay.worksample.exception.RateLimitingException;
 import com.viaplay.worksample.service.ArtistService;
 import com.viaplay.worksample.service.impl.ArtistServiceImpl;
-import com.viaplay.worksample.util.ApiUrlConfig;
+import com.viaplay.worksample.util.config.ApiUrlConfig;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;

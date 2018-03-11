@@ -32,8 +32,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebMvcTest(ArtistInfoController.class)
 public class ArtistInfoControllerTest {
 
+    private static final String ARTISTINFO_URL = "/api/v1/artistinfo/";
+
     @Autowired
-    MockMvc mockMvc;
+    private MockMvc mockMvc;
 
     @MockBean
     private ArtistService artistService;
@@ -68,7 +70,7 @@ public class ArtistInfoControllerTest {
         given(coverArtArchiveService.getAlbumCoverArt(albumMbid1)).willReturn(CompletableFuture.completedFuture(albumCoverArt));
         given(coverArtArchiveService.getAlbumCoverArt(albumMbid2)).willReturn(CompletableFuture.completedFuture(new AlbumCoverArt()));
 
-        mockMvc.perform(get("/api/v1/artistinfo/" + artistMbid))
+        mockMvc.perform(get(ARTISTINFO_URL + artistMbid))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType("application/json;charset=UTF-8"))
                 .andExpect(jsonPath("$.mbid", is(artistMbid)))
@@ -86,11 +88,13 @@ public class ArtistInfoControllerTest {
         String artistMbid = "65f4f0c5-ef9e-490c-aee3-909e7ae6b2ab";
         given(artistService.getArtistInfo(artistMbid)).willThrow(ArtistNotFoundException.class);
 
-        mockMvc.perform(get("/api/v1/artistinfo/" + artistMbid))
+        mockMvc.perform(get(ARTISTINFO_URL + artistMbid))
                 .andExpect(status().isNotFound())
                 .andExpect(content().contentType("application/json;charset=UTF-8"))
-                .andExpect(jsonPath("$.code", is(HttpStatus.NOT_FOUND.value())))
-                .andExpect(jsonPath("$.message", is("Artist with MBID " + artistMbid + " not found!")));
+                .andExpect(jsonPath("$.status", is(HttpStatus.NOT_FOUND.value())))
+                .andExpect(jsonPath("$.error", is(HttpStatus.NOT_FOUND.getReasonPhrase())))
+                .andExpect(jsonPath("$.message", is("Artist with MBID " + artistMbid + " not found!")))
+                .andExpect(jsonPath("$.path", is(ARTISTINFO_URL + artistMbid)));
     }
 
     @Test
@@ -99,10 +103,12 @@ public class ArtistInfoControllerTest {
         String artistMbid = "65f4f0c5-ef9e-490c-aee3-909e7ae6b2ab";
         given(artistService.getArtistInfo(artistMbid)).willThrow(new RuntimeException("Failed to access external api."));
 
-        mockMvc.perform(get("/api/v1/artistinfo/" + artistMbid))
+        mockMvc.perform(get(ARTISTINFO_URL + artistMbid))
                 .andExpect(status().isInternalServerError())
                 .andExpect(content().contentType("application/json;charset=UTF-8"))
-                .andExpect(jsonPath("$.code", is(HttpStatus.INTERNAL_SERVER_ERROR.value())))
-                .andExpect(jsonPath("$.message", is("Failed to access external api.")));
+                .andExpect(jsonPath("$.status", is(HttpStatus.INTERNAL_SERVER_ERROR.value())))
+                .andExpect(jsonPath("$.error", is(HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase())))
+                .andExpect(jsonPath("$.message", is("Failed to access external api.")))
+                .andExpect(jsonPath("$.path", is(ARTISTINFO_URL + artistMbid)));
     }
 }

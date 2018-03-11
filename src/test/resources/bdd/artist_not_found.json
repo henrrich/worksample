@@ -1,4 +1,7 @@
 {
-  "code": 404,
-  "message": "Artist with MBID 65f4f0c5-ef9e-490c-aee3-909e7ae6b2ac not found!"
+  "timestamp": "2018-03-11T15:27:44.013+0100",
+  "status": 404,
+  "error": "Not Found",
+  "message": "Artist with MBID 65f4f0c5-ef9e-490c-aee3-909e7ae6b2ac not found!",
+  "path": "/api/v1/artistinfo/65f4f0c5-ef9e-490c-aee3-909e7ae6b2ac"
 }

@@ -1,0 +1,7 @@
+{
+  "timestamp": "2018-03-11T15:28:35.038+0100",
+  "status": 400,
+  "error": "Bad Request",
+  "message": "MBID must follow UUID format! See https://en.wikipedia.org/wiki/Universally_unique_identifier\n",
+  "path": "/api/v1/artistinfo/65f4f0c5-ef9e-490c-aee3"
+}

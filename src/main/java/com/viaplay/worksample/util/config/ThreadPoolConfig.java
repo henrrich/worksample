@@ -1,4 +1,4 @@
-package com.viaplay.worksample.util;
+package com.viaplay.worksample.util.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;

@@ -4,7 +4,7 @@ import com.viaplay.worksample.domain.model.AlbumCoverArt;
 import com.viaplay.worksample.exception.CoverArtNotFoundException;
 import com.viaplay.worksample.service.CoverArtArchiveService;
 import com.viaplay.worksample.service.handler.CoverArtRestErrorHandler;
-import com.viaplay.worksample.util.ApiUrlConfig;
+import com.viaplay.worksample.util.config.ApiUrlConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.viaplay.worksample.bdd.WorkSampleSystemTest;
 import com.viaplay.worksample.domain.dto.ArtistInfoDto;
 import com.viaplay.worksample.exception.handler.ErrorResponseBody;
+import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -13,9 +14,11 @@ import org.springframework.http.ResponseEntity;
 import java.io.File;
 import java.io.IOException;
 
+import static net.javacrumbs.jsonunit.JsonAssert.assertJsonEquals;
+import static net.javacrumbs.jsonunit.JsonAssert.when;
+import static net.javacrumbs.jsonunit.JsonAssert.whenIgnoringPaths;
+import static net.javacrumbs.jsonunit.core.Option.IGNORING_ARRAY_ORDER;
 import static org.assertj.core.api.Assertions.assertThat;
-import static net.javacrumbs.jsonunit.JsonAssert.*;
-import static net.javacrumbs.jsonunit.core.Option.*;
 
 public class ArtistInfoStepDefs extends WorkSampleSystemTest {
 
@@ -45,10 +48,15 @@ public class ArtistInfoStepDefs extends WorkSampleSystemTest {
         response = sendHttpGetRequest(artistInfoAPI + artistMbid, ErrorResponseBody.class);
     }
 
-    @And("^the error response body is identical to the expected json \"([^\"]*)\"$")
-    public void theErrorResponseBodyIsIdenticalToTheExpectedJson(String file) throws Throwable {
+    @When("^the client calls api GET \"([^\"]*)\" with invalid \"([^\"]*)\"$")
+    public void theClientCallsApiGETWithInvalid(String artistInfoAPI, String artistMbid) throws Throwable {
+        response = sendHttpGetRequest(artistInfoAPI + artistMbid, ErrorResponseBody.class);
+    }
+
+    @And("^the response body contains the expected json \"([^\"]*)\"$")
+    public void theResponseBodyContainsTheExpectedJson(String file) throws Throwable {
         ErrorResponseBody expected = loadJsonStringFromFile(file, ErrorResponseBody.class);
-        assertThat(mapper.writeValueAsString(response.getBody())).isEqualTo(mapper.writeValueAsString(expected));
+        assertJsonEquals(response.getBody(), expected, whenIgnoringPaths("timestamp"));
     }
 
     private ResponseEntity sendHttpGetRequest(String url, Class responseBodyType) {

@@ -8,14 +8,16 @@ import com.viaplay.worksample.domain.model.ArtistProfile;
 import com.viaplay.worksample.service.ArtistService;
 import com.viaplay.worksample.service.CoverArtArchiveService;
 import com.viaplay.worksample.util.UriUtil;
+import com.viaplay.worksample.util.validator.ValidMBID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.net.MalformedURLException;
@@ -28,6 +30,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(value = "/api/v1", produces = "application/json")
+@Validated
 public class ArtistInfoController {
 
     public static final Logger logger = LoggerFactory.getLogger(ArtistInfoController.class);
@@ -38,8 +41,8 @@ public class ArtistInfoController {
     @Autowired
     private CoverArtArchiveService coverArtArchiveService;
 
-    @RequestMapping(value = "/artistinfo/{mbid}", method = RequestMethod.GET)
-    public ResponseEntity<ArtistInfoDto> getArtistInfoByMBID(@PathVariable("mbid") String mbid) throws Exception {
+    @GetMapping("/artistinfo/{mbid}")
+    public ResponseEntity<ArtistInfoDto> getArtistInfoByMBID(@ValidMBID @PathVariable(value = "mbid", required = true) String mbid) throws Exception {
         logger.info("Fetching information of artist with MBID {}", mbid);
 
         Artist artist = artistService.getArtistInfo(mbid);

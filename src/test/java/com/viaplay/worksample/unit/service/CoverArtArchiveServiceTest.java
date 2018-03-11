@@ -5,7 +5,7 @@ import com.viaplay.worksample.domain.model.AlbumCoverArt;
 import com.viaplay.worksample.exception.CoverArtNotFoundException;
 import com.viaplay.worksample.service.CoverArtArchiveService;
 import com.viaplay.worksample.service.impl.CoverArtArchiveServiceImpl;
-import com.viaplay.worksample.util.ApiUrlConfig;
+import com.viaplay.worksample.util.config.ApiUrlConfig;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;

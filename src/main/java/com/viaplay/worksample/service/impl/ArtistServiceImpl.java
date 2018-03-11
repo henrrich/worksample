@@ -7,7 +7,7 @@ import com.viaplay.worksample.exception.RateLimitingException;
 import com.viaplay.worksample.service.ArtistService;
 import com.viaplay.worksample.service.handler.DiscogsRestErrorHandler;
 import com.viaplay.worksample.service.handler.MusicBrainzRestErrorHandler;
-import com.viaplay.worksample.util.ApiUrlConfig;
+import com.viaplay.worksample.util.config.ApiUrlConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
