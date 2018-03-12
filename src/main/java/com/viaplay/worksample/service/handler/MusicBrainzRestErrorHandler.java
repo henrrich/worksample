@@ -13,6 +13,9 @@ import org.springframework.web.client.ResponseErrorHandler;
 import java.io.IOException;
 import java.net.URI;
 
+/*
+ * Error handler for musicbrainz artist rest api call
+ */
 public class MusicBrainzRestErrorHandler implements ResponseErrorHandler {
 
     private static final Logger logger = LoggerFactory.getLogger(MusicBrainzRestErrorHandler.class);
@@ -27,6 +30,9 @@ public class MusicBrainzRestErrorHandler implements ResponseErrorHandler {
 
     }
 
+    // in case of 404 error, throw internal ArtistNotFoundException
+    // in case of 503 error, throw internal RateLimitingException
+    // in case of other error, throw RuntimeException
     @Override
     public void handleError(URI url, HttpMethod method, ClientHttpResponse response) throws IOException {
         HttpStatus statusCode = response.getStatusCode();

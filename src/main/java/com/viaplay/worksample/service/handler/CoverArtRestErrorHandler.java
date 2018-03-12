@@ -14,6 +14,9 @@ import org.springframework.web.client.ResponseErrorHandler;
 import java.io.IOException;
 import java.net.URI;
 
+/*
+ * Error handler for coverartarchive rest api call
+ */
 public class CoverArtRestErrorHandler implements ResponseErrorHandler {
 
     private static final Logger logger = LoggerFactory.getLogger(CoverArtRestErrorHandler.class);
@@ -27,6 +30,8 @@ public class CoverArtRestErrorHandler implements ResponseErrorHandler {
     public void handleError(ClientHttpResponse clientHttpResponse) throws IOException {
     }
 
+    // in case of 404 error, throw internal ArtistNotFoundException
+    // in case of other error, throw RuntimeException
     @Override
     public void handleError(URI url, HttpMethod method, ClientHttpResponse response) throws IOException {
         HttpStatus statusCode = response.getStatusCode();

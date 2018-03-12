@@ -40,6 +40,7 @@ public class ArtistInfoStepDefs extends WorkSampleSystemTest {
     public void theResponseBodyIsIdenticalToTheExpectedJson(String file) throws Throwable {
         ArtistInfoDto expected = loadJsonStringFromFile(file, ArtistInfoDto.class);
 
+        // use json-unit here to compare response body to a predefined json string, and allow array elements in different order
         assertJsonEquals(response.getBody(), expected, when(IGNORING_ARRAY_ORDER));
     }
 
@@ -56,6 +57,8 @@ public class ArtistInfoStepDefs extends WorkSampleSystemTest {
     @And("^the response body contains the expected json \"([^\"]*)\"$")
     public void theResponseBodyContainsTheExpectedJson(String file) throws Throwable {
         ErrorResponseBody expected = loadJsonStringFromFile(file, ErrorResponseBody.class);
+
+        // use json-unit here to compare the error response body to a predefined json string, and skip the difference in timestamp field
         assertJsonEquals(response.getBody(), expected, whenIgnoringPaths("timestamp"));
     }
 

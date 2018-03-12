@@ -31,6 +31,7 @@ public class WorksampleApplication {
 		SpringApplication.run(WorksampleApplication.class, args);
 	}
 
+	// define a spring bean for instantiating the thread pool
 	@Bean
 	public Executor asyncExecutor() {
 		ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
@@ -42,6 +43,7 @@ public class WorksampleApplication {
 		return executor;
 	}
 
+	// MethodValidationPostProcessor allows JSR-303 validator to work with rest api path variables
 	@Bean
 	public MethodValidationPostProcessor methodValidationPostProcessor() {
 		return new MethodValidationPostProcessor();

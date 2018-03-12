@@ -7,6 +7,10 @@ import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
 
+/*
+ * This class represents the release group information returned in the response body of coverartarchive REST API
+ * It is used as internal data model.
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class AlbumCoverArt implements Serializable {
 

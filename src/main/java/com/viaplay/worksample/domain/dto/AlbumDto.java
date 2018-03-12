@@ -7,6 +7,10 @@ import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
 
+/*
+* This class represents an album with id, title and a list of links to cover art images.
+* It is used to construct the JSON response body for the artistinfo REST API
+*/
 @ApiModel( description = "Representing an album with id, title and a list of links to cover art images")
 public class AlbumDto implements Serializable {
 

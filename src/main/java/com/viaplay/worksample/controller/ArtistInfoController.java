@@ -1,12 +1,10 @@
 package com.viaplay.worksample.controller;
 
-import com.google.common.util.concurrent.RateLimiter;
 import com.viaplay.worksample.domain.dto.AlbumDto;
 import com.viaplay.worksample.domain.dto.ArtistInfoDto;
 import com.viaplay.worksample.domain.model.AlbumCoverArt;
 import com.viaplay.worksample.domain.model.Artist;
 import com.viaplay.worksample.domain.model.ArtistProfile;
-import com.viaplay.worksample.exception.RateLimitingException;
 import com.viaplay.worksample.service.ArtistService;
 import com.viaplay.worksample.service.CoverArtArchiveService;
 import com.viaplay.worksample.util.UriUtil;
@@ -65,21 +63,23 @@ public class ArtistInfoController {
                                                                      String mbid) throws Exception {
         logger.info("Fetching information of artist with MBID {}", mbid);
 
-        rateLimitHandler.checkPermit();
+        rateLimitHandler.checkPermit(); // return Service Unavailable error to client in case rate limit is reached with rate limit info in response header
 
         Artist artist = artistService.getArtistInfo(mbid);
 
         String artistIdInDiscogs = getArtistIdInDiscogs(artist);
 
+        // call discogs api in a thread
         CompletableFuture<ArtistProfile> profileFuture = null;
         if (artistIdInDiscogs != null) {
             profileFuture = artistService.getProfileDescriptionForArtist(artistIdInDiscogs);
         }
 
+        // perform each coverartarchive api call in a separate thread
         Map<String, CompletableFuture<AlbumCoverArt>> futures = new HashMap<>();
         Map<String, AlbumDto> albumsMap = new HashMap<>();
         artist.getReleaseGroups().stream()
-                .filter(releaseGroup -> "Album".equals(releaseGroup.getPrimaryType()))
+                .filter(releaseGroup -> "Album".equals(releaseGroup.getPrimaryType())) // only fetch release groups with type=Album
                 .forEach(album -> {
                     String albumId = album.getId();
                     AlbumDto albumDto = new AlbumDto(albumId, album.getTitle());
@@ -88,9 +88,9 @@ public class ArtistInfoController {
                     futures.put(albumId, albumCoverArtFuture);
                 });
 
-        CompletableFuture.allOf(futures.values().toArray(new CompletableFuture[futures.size()])).join();
+        CompletableFuture.allOf(futures.values().toArray(new CompletableFuture[futures.size()])).join(); // wait for all coverartarchive api call threads to finish and get returned values
 
-        ArtistProfile profile = profileFuture.get();
+        ArtistProfile profile = profileFuture.get(); // wait for discogs api call thread to finish and get returned value
         ArtistInfoDto artistInfoDto = new ArtistInfoDto(mbid, profile != null ? profile.getProfile() : null);
         futures.forEach((albumId, future) -> {
             try {
@@ -105,6 +105,9 @@ public class ArtistInfoController {
         return new ResponseEntity<ArtistInfoDto>(artistInfoDto, HttpStatus.OK);
     }
 
+    /*
+    * This method goes through the list of relations in the MusicBrainz artist api response, get the URL string for relation discogs and fetch the discogs artist id from the end of the URL.
+    */
     private String getArtistIdInDiscogs(Artist artist) throws MalformedURLException {
         List<String> discogsUrls = artist.getRelations().stream().filter(
                 relation -> "discogs".equals(relation.getRelationType())

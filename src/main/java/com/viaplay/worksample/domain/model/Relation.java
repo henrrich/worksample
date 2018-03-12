@@ -5,6 +5,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.io.Serializable;
 
+/*
+ * This class represents the relation information returned in the response body of musicbrainz artist REST API
+ * It is used as internal data model.
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Relation implements Serializable {
 

@@ -3,6 +3,9 @@ package com.viaplay.worksample.util.config;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
+/*
+ * A spring bean loads the configuration of thread pool defined in application.properties
+ */
 @Component
 @ConfigurationProperties(prefix = "threadpool")
 public class ThreadPoolConfig {

@@ -12,6 +12,9 @@ import org.springframework.stereotype.Component;
 
 import java.util.concurrent.TimeUnit;
 
+/*
+ * A spring bean provides rate limit control
+ */
 @Component
 public class RateLimitHandler {
 
@@ -20,7 +23,7 @@ public class RateLimitHandler {
     @Autowired
     private RateLimitConfig rateLimitConfig;
 
-    private RateLimiter rateLimiter;
+    private RateLimiter rateLimiter; // google guava rate limiter
 
     public RateLimitHandler(RateLimitConfig rateLimitConfig) {
         this.rateLimiter = RateLimiter.create(rateLimitConfig.getRatelimitPerSec());
@@ -38,6 +41,10 @@ public class RateLimitHandler {
         return rateLimitConfig.getRatelimitPerSec();
     }
 
+    /**
+     * Try to acquire permit from guava rate limiter within a short timeout.
+     * If timeout, throw RateLimitingException
+     */
     public void checkPermit() {
         if (!rateLimiter.tryAcquire(rateLimitConfig.getCheckTimeout(), TimeUnit.MILLISECONDS)) {
             logger.warn("Rate limit reached!");

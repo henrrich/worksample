@@ -96,7 +96,9 @@ mvn clean test -Pcucumber-test
 ```
 The cucumber html test reports can be found under `<project root>/target/reports/cucumber/html` folder and can be opened in a local browser.
 
-Thanks to the integration test support from Spring Boot, when the system test is started, the application will be booted up automatically on a random local port. And the system test can therefore run in a standalone mode without an pre-running application. 
+With Spring MockMvc, the application will be booted up automatically on a random local port. And the system test can therefore run in a standalone mode without an pre-running application. 
+
+**The positve system test case verification relies on predefined local json strings. Sometimes it may fail due to artist information has been updated in related data sources. In such case, local json string in the test resource file needs to be updated.**
 
 ### Package Application in Docker Container
 A `Dockerfile` is also provided under the project root folder to support building the REST service application into a Java 9 docker image.

@@ -7,6 +7,10 @@ import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
 
+/*
+ * This class represents information for an artist, including id, profile description and the artist's released albums.
+ * It is used to construct the JSON response body for the artistinfo REST API
+ */
 @ApiModel( description = "Representing information for an artist, including id, profile description and the artist's released albums.")
 public class ArtistInfoDto implements Serializable {
 

@@ -19,12 +19,16 @@ import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 import java.util.Set;
 
+/*
+ * Global exception handlers are defined in this class to transform the corresponding exceptions into proper error responses
+ */
 @ControllerAdvice
 public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
     @Autowired
     RateLimitHandler rateLimitHandler;
 
+    // exception handler for ArtistNotFoundException exception, transform to 404 error
     @ExceptionHandler(value = { ArtistNotFoundException.class })
     protected ResponseEntity<Object> handleArtistNotFoundException(RuntimeException ex, WebRequest request) throws Exception {
         String uri = UriUtil.getRequestUri(request);
@@ -35,6 +39,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
                 new HttpHeaders(), HttpStatus.NOT_FOUND, request);
     }
 
+    // exception handler for RateLimitingException exception, transform to 503 error
     @ExceptionHandler(value = { RateLimitingException.class })
     protected ResponseEntity<Object> handleRateLimitingException(RuntimeException ex, WebRequest request) throws Exception {
         String message = ex.getMessage();
@@ -46,6 +51,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
                 httpHeaders, HttpStatus.SERVICE_UNAVAILABLE, request);
     }
 
+    // exception handler for all other RuntimeException exceptions, tranform to 500 error
     @ExceptionHandler(value = { RuntimeException.class })
     protected ResponseEntity<Object> handleRuntimeException(RuntimeException ex, WebRequest request) throws Exception {
         String message = ex.getMessage();
@@ -55,6 +61,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
                 new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR, request);
     }
 
+    // exception handler for ConstraintViolationException exception triggered by parameter validation, tranform to 400 error
     @ExceptionHandler(value = {ConstraintViolationException.class })
     protected ResponseEntity<Object> handleRequestValidationException(ConstraintViolationException ex, WebRequest request) throws Exception {
         String uri = UriUtil.getRequestUri(request);

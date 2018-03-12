@@ -23,6 +23,9 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.concurrent.CompletableFuture;
 
+/*
+* Implementation of artist service
+*/
 @Service
 public class ArtistServiceImpl implements ArtistService {
 
@@ -40,6 +43,12 @@ public class ArtistServiceImpl implements ArtistService {
         this.restTemplate = restTemplateBuilder.build();
     }
 
+    /**
+    * fetch artist information from musicbrainz artist lookup api
+    *
+    * @param mbid String mbid of the artist
+    * @return Artist artist model
+    */
     @Override
     @Cacheable("artist")
     public Artist getArtistInfo(String mbid) {
@@ -49,6 +58,14 @@ public class ArtistServiceImpl implements ArtistService {
         return artist;
     }
 
+    /**
+     * Fetch artist information from discogs api and handle the error when accessing discogs api
+     *
+     * The method body is executed in a thread if thread pool is enabled
+     *
+     * @param id String id of the artist in discogs.com
+     * @return CompletableFuture<ArtistProfile> an asynchronous future response containing the artist information, which can be fetched later
+     */
     @Override
     @Async
     @Cacheable("profile")

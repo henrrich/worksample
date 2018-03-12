@@ -6,6 +6,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.io.Serializable;
 import java.util.Map;
 
+/*
+ * This class represents the release group information returned in the response body of musicbrainz artist REST API
+ * It is used as internal data model.
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ReleaseGroup implements Serializable {
 

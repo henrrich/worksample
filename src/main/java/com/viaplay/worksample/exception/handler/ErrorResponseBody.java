@@ -5,13 +5,16 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/*
+ * This class represents the error response body for artistinfo REST API
+ */
 public class ErrorResponseBody implements Serializable {
 
     private String timestamp;
-    private int status;
-    private String error;
-    private String message;
-    private String path;
+    private int status; // http status code
+    private String error; // http status text
+    private String message; // detailed error message
+    private String path; // uri of the incoming request
 
     public ErrorResponseBody() {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");

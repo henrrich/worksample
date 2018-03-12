@@ -4,6 +4,10 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.io.Serializable;
 
+/*
+ * This class represents an image link returned in the response body of coverartarchive REST API
+ * It is used as internal data model.
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Image implements Serializable {
 

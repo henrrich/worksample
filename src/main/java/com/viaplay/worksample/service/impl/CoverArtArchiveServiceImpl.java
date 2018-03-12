@@ -30,6 +30,14 @@ public class CoverArtArchiveServiceImpl implements CoverArtArchiveService {
         this.restTemplate = restTemplateBuilder.build();
     }
 
+    /**
+     * Fetch cover art information from coverartarchive api and handle the accessing errors
+     *
+     * The method body is executed in a thread if thread pool is enabled
+     *
+     * @param mbid String mbid of the album in musicbrainz
+     * @return CompletableFuture<AlbumCoverArt> an asynchronous future response containing the album information, which can be fetched later
+     */
     @Override
     @Async
     @Cacheable("coverart")
