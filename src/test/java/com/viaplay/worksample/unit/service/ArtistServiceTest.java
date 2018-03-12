@@ -7,7 +7,8 @@ import com.viaplay.worksample.exception.ArtistNotFoundException;
 import com.viaplay.worksample.exception.RateLimitingException;
 import com.viaplay.worksample.service.ArtistService;
 import com.viaplay.worksample.service.impl.ArtistServiceImpl;
-import com.viaplay.worksample.util.config.ApiUrlConfig;
+import com.viaplay.worksample.util.DiscogsApiAuthUtil;
+import com.viaplay.worksample.util.config.ApiConfig;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,7 +16,11 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.File;
@@ -39,7 +44,10 @@ public class ArtistServiceTest {
     private RestTemplate restTemplate;
 
     @Mock
-    private ApiUrlConfig apiUrlConfig;
+    private ApiConfig apiConfig;
+
+    @Mock
+    private DiscogsApiAuthUtil discogsApiAuthUtil;
 
     @InjectMocks
     private ArtistService artistService = new ArtistServiceImpl(new RestTemplateBuilder());
@@ -55,27 +63,30 @@ public class ArtistServiceTest {
     @Test
     public void testGetArtistInfo() {
         Mockito.when(restTemplate.getForObject(MUSICBRAINZ_ARTIST_URL, Artist.class)).thenReturn(artist);
-        Mockito.when(apiUrlConfig.getApiBaseUrlMusicBrainz()).thenReturn(MUSICBRAINZ_ARTIST_BASE_URL);
+        Mockito.when(apiConfig.getApiBaseUrlMusicBrainz()).thenReturn(MUSICBRAINZ_ARTIST_BASE_URL);
         assertThat(artistService.getArtistInfo("65f4f0c5-ef9e-490c-aee3-909e7ae6b2ab")).isEqualTo(artist);
     }
 
     @Test
     public void testGetProfileDescriptionForArtist() throws ExecutionException, InterruptedException {
-        Mockito.when(apiUrlConfig.getApiBaseUrlDiscogs()).thenReturn(DISCOGS_ARTIST_BASE_URL);
-        Mockito.when(restTemplate.getForObject(DISCOGS_ARTIST_URL + "15885", ArtistProfile.class)).thenReturn(profile);
+        Mockito.when(apiConfig.getApiBaseUrlDiscogs()).thenReturn(DISCOGS_ARTIST_BASE_URL);
+
+        ResponseEntity<ArtistProfile> response = new ResponseEntity<ArtistProfile>(profile, HttpStatus.OK);
+        Mockito.when(restTemplate.exchange(DISCOGS_ARTIST_URL + "15885", HttpMethod.GET, discogsApiAuthUtil.getAuthHeaderEntity(), ArtistProfile.class)).thenReturn(response);
         assertThat(artistService.getProfileDescriptionForArtist("15885").get().getProfile()).isEqualTo("American singer");
     }
 
     @Test
     public void testGetProfileDescriptionFailed() throws ExecutionException, InterruptedException {
-        Mockito.when(apiUrlConfig.getApiBaseUrlDiscogs()).thenReturn(DISCOGS_ARTIST_BASE_URL);
-        Mockito.when(restTemplate.getForObject(DISCOGS_ARTIST_URL + "15885", ArtistProfile.class)).thenThrow(RuntimeException.class);
+        Mockito.when(apiConfig.getApiBaseUrlDiscogs()).thenReturn(DISCOGS_ARTIST_BASE_URL);
+
+        Mockito.when(restTemplate.exchange(DISCOGS_ARTIST_URL + "15885", HttpMethod.GET, discogsApiAuthUtil.getAuthHeaderEntity(), ArtistProfile.class)).thenThrow(RuntimeException.class);
         assertThat(artistService.getProfileDescriptionForArtist("15885").get()).isNull();
 
-        Mockito.when(restTemplate.getForObject(DISCOGS_ARTIST_URL + "15886", ArtistProfile.class)).thenThrow(ArtistNotFoundException.class);
+        Mockito.when(restTemplate.exchange(DISCOGS_ARTIST_URL + "15886", HttpMethod.GET, discogsApiAuthUtil.getAuthHeaderEntity(), ArtistProfile.class)).thenThrow(ArtistNotFoundException.class);
         assertThat(artistService.getProfileDescriptionForArtist("15886").get()).isNull();
 
-        Mockito.when(restTemplate.getForObject(DISCOGS_ARTIST_URL + "15887", ArtistProfile.class)).thenThrow(RateLimitingException.class);
+        Mockito.when(restTemplate.exchange(DISCOGS_ARTIST_URL + "15887", HttpMethod.GET, discogsApiAuthUtil.getAuthHeaderEntity(), ArtistProfile.class)).thenThrow(RateLimitingException.class);
         assertThat(artistService.getProfileDescriptionForArtist("15887").get()).isNull();
     }
 }

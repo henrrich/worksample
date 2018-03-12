@@ -1,6 +1,5 @@
 package com.viaplay.worksample.service.impl;
 
-import com.google.common.util.concurrent.RateLimiter;
 import com.viaplay.worksample.domain.model.Artist;
 import com.viaplay.worksample.domain.model.ArtistProfile;
 import com.viaplay.worksample.exception.ArtistNotFoundException;
@@ -8,12 +7,16 @@ import com.viaplay.worksample.exception.RateLimitingException;
 import com.viaplay.worksample.service.ArtistService;
 import com.viaplay.worksample.service.handler.DiscogsRestErrorHandler;
 import com.viaplay.worksample.service.handler.MusicBrainzRestErrorHandler;
-import com.viaplay.worksample.util.config.ApiUrlConfig;
+import com.viaplay.worksample.util.DiscogsApiAuthUtil;
+import com.viaplay.worksample.util.config.ApiConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -26,7 +29,10 @@ public class ArtistServiceImpl implements ArtistService {
     private static final Logger logger = LoggerFactory.getLogger(ArtistServiceImpl.class);
 
     @Autowired
-    private ApiUrlConfig apiUrlConfig;
+    private ApiConfig apiConfig;
+
+    @Autowired
+    private DiscogsApiAuthUtil discogsApiAuthUtil;
 
     private RestTemplate restTemplate;
 
@@ -38,7 +44,7 @@ public class ArtistServiceImpl implements ArtistService {
     @Cacheable("artist")
     public Artist getArtistInfo(String mbid) {
         restTemplate.setErrorHandler(new MusicBrainzRestErrorHandler());
-        Artist artist = restTemplate.getForObject(apiUrlConfig.getApiBaseUrlMusicBrainz() + "artist/" + mbid + "?&fmt=json&inc=url-rels+release-groups", Artist.class);
+        Artist artist = restTemplate.getForObject(apiConfig.getApiBaseUrlMusicBrainz() + "artist/" + mbid + "?&fmt=json&inc=url-rels+release-groups", Artist.class);
 
         return artist;
     }
@@ -50,9 +56,12 @@ public class ArtistServiceImpl implements ArtistService {
         restTemplate.setErrorHandler(new DiscogsRestErrorHandler());
 
         ArtistProfile artistProfile = null;
+        ResponseEntity<ArtistProfile> response = null;
 
+        HttpEntity<String> entity = discogsApiAuthUtil.getAuthHeaderEntity();
         try {
-            artistProfile = restTemplate.getForObject(apiUrlConfig.getApiBaseUrlDiscogs() + "artists/" + id, ArtistProfile.class);
+            response = restTemplate.exchange(apiConfig.getApiBaseUrlDiscogs() + "artists/" + id, HttpMethod.GET, entity, ArtistProfile.class);
+            artistProfile = response.getBody();
         } catch (ArtistNotFoundException e) {
             logger.warn("Artist with id " + id + " not found in Discogs!");
         } catch (RateLimitingException e) {

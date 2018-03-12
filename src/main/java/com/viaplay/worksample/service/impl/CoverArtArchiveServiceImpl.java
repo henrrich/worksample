@@ -4,7 +4,7 @@ import com.viaplay.worksample.domain.model.AlbumCoverArt;
 import com.viaplay.worksample.exception.CoverArtNotFoundException;
 import com.viaplay.worksample.service.CoverArtArchiveService;
 import com.viaplay.worksample.service.handler.CoverArtRestErrorHandler;
-import com.viaplay.worksample.util.config.ApiUrlConfig;
+import com.viaplay.worksample.util.config.ApiConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +22,7 @@ public class CoverArtArchiveServiceImpl implements CoverArtArchiveService {
     private static final Logger logger = LoggerFactory.getLogger(CoverArtArchiveServiceImpl.class);
 
     @Autowired
-    private ApiUrlConfig apiUrlConfig;
+    private ApiConfig apiConfig;
 
     private RestTemplate restTemplate;
 
@@ -39,7 +39,7 @@ public class CoverArtArchiveServiceImpl implements CoverArtArchiveService {
 
         AlbumCoverArt albumCoverArt = null;
         try {
-            albumCoverArt = restTemplate.getForObject(apiUrlConfig.getApiBaseUrlCoverArtArchive() + "release-group/" + mbid, AlbumCoverArt.class);
+            albumCoverArt = restTemplate.getForObject(apiConfig.getApiBaseUrlCoverArtArchive() + "release-group/" + mbid, AlbumCoverArt.class);
         } catch (RuntimeException e) {
             if (e instanceof CoverArtNotFoundException) {
                 logger.warn("Cover art of album with MBID " + mbid + " not found!");

@@ -5,8 +5,8 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 @Component
-@ConfigurationProperties(prefix = "api.url")
-public class ApiUrlConfig {
+@ConfigurationProperties(prefix = "api")
+public class ApiConfig {
 
     @Value("${api.url.musicbrainz}")
     private String apiBaseUrlMusicBrainz;
@@ -16,6 +16,12 @@ public class ApiUrlConfig {
 
     @Value("${api.url.discogs}")
     private String apiBaseUrlDiscogs;
+
+    @Value("${api.discogs.key}")
+    private String apiDiscogsKey;
+
+    @Value("${api.discogs.secret}")
+    private String apiDiscogsSecret;
 
     public String getApiBaseUrlMusicBrainz() {
         return apiBaseUrlMusicBrainz;
@@ -41,4 +47,19 @@ public class ApiUrlConfig {
         this.apiBaseUrlDiscogs = apiBaseUrlDiscogs;
     }
 
+    public String getApiDiscogsKey() {
+        return apiDiscogsKey;
+    }
+
+    public void setApiDiscogsKey(String apiDiscogsKey) {
+        this.apiDiscogsKey = apiDiscogsKey;
+    }
+
+    public String getApiDiscogsSecret() {
+        return apiDiscogsSecret;
+    }
+
+    public void setApiDiscogsSecret(String apiDiscogsSecret) {
+        this.apiDiscogsSecret = apiDiscogsSecret;
+    }
 }

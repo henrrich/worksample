@@ -5,7 +5,7 @@ import com.viaplay.worksample.domain.model.AlbumCoverArt;
 import com.viaplay.worksample.exception.CoverArtNotFoundException;
 import com.viaplay.worksample.service.CoverArtArchiveService;
 import com.viaplay.worksample.service.impl.CoverArtArchiveServiceImpl;
-import com.viaplay.worksample.util.config.ApiUrlConfig;
+import com.viaplay.worksample.util.config.ApiConfig;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -35,7 +35,7 @@ public class CoverArtArchiveServiceTest {
     private RestTemplate restTemplate;
 
     @Mock
-    private ApiUrlConfig apiUrlConfig;
+    private ApiConfig apiConfig;
 
     @InjectMocks
     private CoverArtArchiveService coverArtArchiveService = new CoverArtArchiveServiceImpl(new RestTemplateBuilder());
@@ -52,7 +52,7 @@ public class CoverArtArchiveServiceTest {
         String mbid1 = "e8f70201-8899-3f0c-9e07-5d6495bc8046";
         String mbid2 = "e8f70201-8899-3f0c-9e07-5d6495bc8047";
         String mbid3 = "e8f70201-8899-3f0c-9e07-5d6495bc8048";
-        Mockito.when(apiUrlConfig.getApiBaseUrlCoverArtArchive()).thenReturn(COVERARTARCHIVE_ALBUM_BASE_URL);
+        Mockito.when(apiConfig.getApiBaseUrlCoverArtArchive()).thenReturn(COVERARTARCHIVE_ALBUM_BASE_URL);
         Mockito.when(restTemplate.getForObject(COVERARTARCHIVE_ALBUM_URL + mbid1, AlbumCoverArt.class)).thenReturn(albumCoverArt);
         assertThat(coverArtArchiveService.getAlbumCoverArt(mbid1).get()).isEqualTo(albumCoverArt);
 
