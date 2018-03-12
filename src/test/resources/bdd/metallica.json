@@ -3,10 +3,10 @@
   "description": "Thrash Metal (Heavy Metal) band from Los Angeles, California (USA).\r\n\r\nMetallica formed in 1981 by vocalist/guitarist James Hetfield and drummer Lars Ulrich.  The duo first met through an ad in a Los Angeles-based music newspaper.  At the time, Ulrich had little musical experience and no band but managed to secure a slot on an upcoming compilation record called “Metal Massacre”.   Metallica’s contribution, “Hit The Lights”, featured Hetfield, Ulrich and lead guitarist Lloyd Grant.  Afterwards, Ron McGovney became the band's bassist and Dave Mustaine joined the band as lead guitarist.  This line-up would re-record \"Hit The Lights\" for subsequent re-pressings of \"Metal Massacre\" and would also issue several demos.  In 1983, McGovney quit the group and was replaced by Cliff Burton, which also saw the band relocate to San Francisco.  Metallica then traveled to New York after signing a deal with [l=Megaforce Records].  However, once in New York, the band fired Mustaine.  It would mark the beginning of a long feud between Mustaine and Metallica, mostly fueled by remarks Mustaine would make to the press.  Mustaine was replaced by Kirk Hammett of [a=Exodus (6)].\r\n\r\nMetallica's debut LP, \"Kill 'Em All\", was released in 1983.  It was followed in 1984 by \"Ride The Lightning\".  This led to a major label deal with [l=Elektra].  In 1986, the band released \"Master Of Puppets\", which is considered by many to be one of the greatest heavy metal records of all time.  In September of that year, while on tour in Sweden, the band was involved in a bus accident which took the life of Cliff Burton.  Eventually, Jason Newsted (of [a=Flotsam And Jetsam]) was hired as the band's new bassist and he made his debut on 1987's \"Garage Days Re-Revisited\", an EP of cover tunes.  \r\n\r\nIn 1990, Metallica hooked up with producer [a=Bob Rock] for a self-titled release that would become better known as \"The Black Album\", due to its cover art. Released in 1991, the black album would become one of the best-selling rock albums of all time, selling over 16 million copies in the US alone.\r\n\r\nIn 1996, the band experimented with Rock music style Alternative Rock, this could be heard on the album \"Load\".  The following year, \"Reload\" appeared which had the similiar formula as ''Load''. The albums continued the band’s trend of more accessible music.  In 1999, the group released an album and accompanying film called \"S&M\", which featured Metallica performing their songs with the San Francisco Symphony Orchestra.\r\n\r\nIn 2001, as the band was preparing to begin work on a new album, Newsted quit the group, citing personal and musical reasons.  Work on the new album was further complicated when Hetfield entered rehab for alcohol abuse.  The album, called \"St. Anger\", was eventually completed in 2003 with producer Bob Rock handling the bass.  Upon its release, \"St. Anger\" drew mostly negative reviews.  Following the recording, Robert Trujillo, formerly of [a=Suicidal Tendencies], was hired as bassist.  The making of the album was captured in the documentary “Some Kind Of Monster”.\r\n\r\nIn 2008, \"Death Magnetic\", produced by [a=Rick Rubin], would surface and was hailed by many as Metallica's return to thrash metal.  The following year, Metallica was inducted into Rock And Roll Hall of Fame.  Former bassist Jason Newsted was present and Cliff Burton's father appeared on Cliff's behalf.  Dave Mustaine, who was not inducted, was invited to the ceremony by the band but declined to attend.  In 2011, Metallica collaborated with [a=Lou Reed] on the album, “Lulu”, which was largely panned by critics and ignored by consumers.    \r\n",
   "albums": [
     {
-      "id": "09464c93-bd43-4642-ab85-3c600d601390",
-      "title": "Black Album",
+      "id": "e8f70201-8899-3f0c-9e07-5d6495bc8046",
+      "title": "Metallica",
       "images": [
-        "http://coverartarchive.org/release/9f1b4f43-f149-45d9-b119-86b6cdcb2568/19310068636.jpg"
+        "http://coverartarchive.org/release/2529f558-970b-33d2-a42c-41ab15a970c6/8202912235.jpg"
       ]
     },
     {
@@ -23,16 +23,10 @@
       ]
     },
     {
-      "id": "18c52517-edbd-3bcd-813d-cffebb4ecd12",
-      "title": "Garage Days Revisited",
-      "images": []
-    },
-    {
-      "id": "2ad9a54b-7d22-4ec6-924f-7b4c0d3d2ce9",
-      "title": "The $9.98 C.D. Garage Days Re-Revisited + B Side & Demos",
+      "id": "9c7f657f-c21b-352c-bf7c-665120ba42a1",
+      "title": "The $5.98 E.P.: Garage Days Re‐Revisited …and More",
       "images": [
-        "http://coverartarchive.org/release/ed54a819-3cc7-47d8-a209-9ce8abd7f7f9/1812341717.jpg",
-        "http://coverartarchive.org/release/ed54a819-3cc7-47d8-a209-9ce8abd7f7f9/2210112354.jpg"
+        "http://coverartarchive.org/release/046fc4e3-d3b4-4dd9-98bd-8eb6ef9c74b8/4797113741.jpg"
       ]
     },
     {
@@ -40,6 +34,72 @@
       "title": "Lulu",
       "images": [
         "http://coverartarchive.org/release/6c514dd9-f7c1-422b-8fcf-cb0aa04ac234/7123246331.jpg"
+      ]
+    },
+    {
+      "id": "e160fae5-075f-3917-b991-39ffc952f380",
+      "title": "Tales From the Cliff",
+      "images": []
+    },
+    {
+      "id": "5c8a25bf-4764-3cce-8f37-30af79d3b101",
+      "title": "Death Magnetic",
+      "images": [
+        "http://coverartarchive.org/release/940d6fba-3603-4ac2-8f5d-ea0a11e51765/11162781382.jpg",
+        "http://coverartarchive.org/release/940d6fba-3603-4ac2-8f5d-ea0a11e51765/6802599499.jpg"
+      ]
+    },
+    {
+      "id": "09464c93-bd43-4642-ab85-3c600d601390",
+      "title": "Black Album",
+      "images": [
+        "http://coverartarchive.org/release/9f1b4f43-f149-45d9-b119-86b6cdcb2568/19310068636.jpg"
+      ]
+    },
+    {
+      "id": "8f1cc89b-7e80-3e1c-b571-8cf2b98db347",
+      "title": "St. Anger",
+      "images": [
+        "http://coverartarchive.org/release/9e592e07-4e64-3966-a6b2-7d8a08276916/15682896180.jpg",
+        "http://coverartarchive.org/release/9e592e07-4e64-3966-a6b2-7d8a08276916/15682906925.jpg",
+        "http://coverartarchive.org/release/9e592e07-4e64-3966-a6b2-7d8a08276916/15682908032.jpg",
+        "http://coverartarchive.org/release/9e592e07-4e64-3966-a6b2-7d8a08276916/15682908400.jpg",
+        "http://coverartarchive.org/release/9e592e07-4e64-3966-a6b2-7d8a08276916/15682908749.jpg",
+        "http://coverartarchive.org/release/9e592e07-4e64-3966-a6b2-7d8a08276916/15682909655.jpg"
+      ]
+    },
+    {
+      "id": "e389b7df-862d-3d91-a612-acca150f6e71",
+      "title": "Load",
+      "images": [
+        "http://coverartarchive.org/release/d0edc24b-f201-3076-b015-e54401239a8f/4462141147.jpg",
+        "http://coverartarchive.org/release/d0edc24b-f201-3076-b015-e54401239a8f/4462149307.jpg",
+        "http://coverartarchive.org/release/d0edc24b-f201-3076-b015-e54401239a8f/4462152120.jpg",
+        "http://coverartarchive.org/release/d0edc24b-f201-3076-b015-e54401239a8f/4462154468.jpg",
+        "http://coverartarchive.org/release/d0edc24b-f201-3076-b015-e54401239a8f/13692807351.jpg",
+        "http://coverartarchive.org/release/d0edc24b-f201-3076-b015-e54401239a8f/13692809485.jpg",
+        "http://coverartarchive.org/release/d0edc24b-f201-3076-b015-e54401239a8f/13692811219.jpg",
+        "http://coverartarchive.org/release/d0edc24b-f201-3076-b015-e54401239a8f/13692812190.jpg",
+        "http://coverartarchive.org/release/d0edc24b-f201-3076-b015-e54401239a8f/13692813106.jpg",
+        "http://coverartarchive.org/release/d0edc24b-f201-3076-b015-e54401239a8f/13692814629.jpg",
+        "http://coverartarchive.org/release/d0edc24b-f201-3076-b015-e54401239a8f/13692816648.jpg",
+        "http://coverartarchive.org/release/d0edc24b-f201-3076-b015-e54401239a8f/13692818177.jpg",
+        "http://coverartarchive.org/release/d0edc24b-f201-3076-b015-e54401239a8f/13692819321.jpg",
+        "http://coverartarchive.org/release/d0edc24b-f201-3076-b015-e54401239a8f/13692821419.jpg",
+        "http://coverartarchive.org/release/d0edc24b-f201-3076-b015-e54401239a8f/13692822303.jpg",
+        "http://coverartarchive.org/release/d0edc24b-f201-3076-b015-e54401239a8f/13692823976.jpg",
+        "http://coverartarchive.org/release/d0edc24b-f201-3076-b015-e54401239a8f/13692827412.jpg",
+        "http://coverartarchive.org/release/d0edc24b-f201-3076-b015-e54401239a8f/13692830127.jpg",
+        "http://coverartarchive.org/release/d0edc24b-f201-3076-b015-e54401239a8f/13692832110.jpg",
+        "http://coverartarchive.org/release/d0edc24b-f201-3076-b015-e54401239a8f/13692833384.jpg",
+        "http://coverartarchive.org/release/d0edc24b-f201-3076-b015-e54401239a8f/13692836146.jpg"
+      ]
+    },
+    {
+      "id": "a99d37ec-0ad0-42c7-8028-957a81c80736",
+      "title": "In Vertigo you will be",
+      "images": [
+        "http://coverartarchive.org/release/debe967f-4f6b-427c-8efb-64d6804fb19b/14955416547.jpg"
       ]
     },
     {
@@ -52,56 +112,6 @@
         "http://coverartarchive.org/release/cb100c18-fb29-4828-8d24-2fdbac6d6cff/15675238958.jpg",
         "http://coverartarchive.org/release/cb100c18-fb29-4828-8d24-2fdbac6d6cff/15675239535.jpg",
         "http://coverartarchive.org/release/cb100c18-fb29-4828-8d24-2fdbac6d6cff/15675240030.jpg"
-      ]
-    },
-    {
-      "id": "55d8ab42-990b-4c94-93c8-9ca7927b5fc0",
-      "title": "Hardwired… to Self‐Destruct",
-      "images": [
-        "http://coverartarchive.org/release/4f8dc580-0c06-43f1-9aaf-ec3031fa738d/14402335791.jpg"
-      ]
-    },
-    {
-      "id": "5c8a25bf-4764-3cce-8f37-30af79d3b101",
-      "title": "Death Magnetic",
-      "images": [
-        "http://coverartarchive.org/release/940d6fba-3603-4ac2-8f5d-ea0a11e51765/11162781382.jpg",
-        "http://coverartarchive.org/release/940d6fba-3603-4ac2-8f5d-ea0a11e51765/6802599499.jpg"
-      ]
-    },
-    {
-      "id": "67553e23-8dad-3792-b6f2-8fedd5650ff3",
-      "title": "…and Justice for All",
-      "images": [
-        "http://coverartarchive.org/release/da53e497-8c61-4d4a-a29b-a5b53d86ccb7/7476858115.jpg",
-        "http://coverartarchive.org/release/da53e497-8c61-4d4a-a29b-a5b53d86ccb7/7476859014.jpg"
-      ]
-    },
-    {
-      "id": "6d4b4468-16dc-3e19-91c6-2a394ac99762",
-      "title": "Heavy Best",
-      "images": []
-    },
-    {
-      "id": "8695e5b2-4c2f-4faf-9faa-bf7ae603e12d",
-      "title": "Garage Days Pt. II",
-      "images": []
-    },
-    {
-      "id": "88032b2b-dd3b-36a8-9fe0-de720fb451fd",
-      "title": "Ultra Rare Trax",
-      "images": []
-    },
-    {
-      "id": "8f1cc89b-7e80-3e1c-b571-8cf2b98db347",
-      "title": "St. Anger",
-      "images": [
-        "http://coverartarchive.org/release/9e592e07-4e64-3966-a6b2-7d8a08276916/15682896180.jpg",
-        "http://coverartarchive.org/release/9e592e07-4e64-3966-a6b2-7d8a08276916/15682906925.jpg",
-        "http://coverartarchive.org/release/9e592e07-4e64-3966-a6b2-7d8a08276916/15682908032.jpg",
-        "http://coverartarchive.org/release/9e592e07-4e64-3966-a6b2-7d8a08276916/15682908400.jpg",
-        "http://coverartarchive.org/release/9e592e07-4e64-3966-a6b2-7d8a08276916/15682908749.jpg",
-        "http://coverartarchive.org/release/9e592e07-4e64-3966-a6b2-7d8a08276916/15682909655.jpg"
       ]
     },
     {
@@ -136,17 +146,10 @@
       ]
     },
     {
-      "id": "9c7f657f-c21b-352c-bf7c-665120ba42a1",
-      "title": "The $5.98 E.P.: Garage Days Re‐Revisited …and More",
+      "id": "ea0612d0-f425-3d20-b124-66c0a4862643",
+      "title": "New Skulls for the Old Ceremony",
       "images": [
-        "http://coverartarchive.org/release/046fc4e3-d3b4-4dd9-98bd-8eb6ef9c74b8/4797113741.jpg"
-      ]
-    },
-    {
-      "id": "a99d37ec-0ad0-42c7-8028-957a81c80736",
-      "title": "In Vertigo you will be",
-      "images": [
-        "http://coverartarchive.org/release/debe967f-4f6b-427c-8efb-64d6804fb19b/14955416547.jpg"
+        "http://coverartarchive.org/release/6cb60625-fa55-4594-90e8-c9f53437c907/1288562726.jpg"
       ]
     },
     {
@@ -155,12 +158,11 @@
       "images": []
     },
     {
-      "id": "c68f2af8-cf49-357e-bcce-5da72fae4756",
-      "title": "Covering 'em",
+      "id": "2ad9a54b-7d22-4ec6-924f-7b4c0d3d2ce9",
+      "title": "The $9.98 C.D. Garage Days Re-Revisited + B Side & Demos",
       "images": [
-        "http://coverartarchive.org/release/5e5f6a3f-d519-475f-bd6c-b302690c3a9f/5576625018.jpg",
-        "http://coverartarchive.org/release/5e5f6a3f-d519-475f-bd6c-b302690c3a9f/5576626486.jpg",
-        "http://coverartarchive.org/release/5e5f6a3f-d519-475f-bd6c-b302690c3a9f/5576627065.jpg"
+        "http://coverartarchive.org/release/ed54a819-3cc7-47d8-a209-9ce8abd7f7f9/1812341717.jpg",
+        "http://coverartarchive.org/release/ed54a819-3cc7-47d8-a209-9ce8abd7f7f9/2210112354.jpg"
       ]
     },
     {
@@ -169,59 +171,16 @@
       "images": []
     },
     {
-      "id": "e160fae5-075f-3917-b991-39ffc952f380",
-      "title": "Tales From the Cliff",
+      "id": "55d8ab42-990b-4c94-93c8-9ca7927b5fc0",
+      "title": "Hardwired… to Self-Destruct",
+      "images": [
+        "http://coverartarchive.org/release/4f8dc580-0c06-43f1-9aaf-ec3031fa738d/14402335791.jpg"
+      ]
+    },
+    {
+      "id": "18c52517-edbd-3bcd-813d-cffebb4ecd12",
+      "title": "Garage Days Revisited",
       "images": []
-    },
-    {
-      "id": "e389b7df-862d-3d91-a612-acca150f6e71",
-      "title": "Load",
-      "images": [
-        "http://coverartarchive.org/release/d0edc24b-f201-3076-b015-e54401239a8f/4462141147.jpg",
-        "http://coverartarchive.org/release/d0edc24b-f201-3076-b015-e54401239a8f/4462149307.jpg",
-        "http://coverartarchive.org/release/d0edc24b-f201-3076-b015-e54401239a8f/4462152120.jpg",
-        "http://coverartarchive.org/release/d0edc24b-f201-3076-b015-e54401239a8f/4462154468.jpg",
-        "http://coverartarchive.org/release/d0edc24b-f201-3076-b015-e54401239a8f/13692807351.jpg",
-        "http://coverartarchive.org/release/d0edc24b-f201-3076-b015-e54401239a8f/13692809485.jpg",
-        "http://coverartarchive.org/release/d0edc24b-f201-3076-b015-e54401239a8f/13692811219.jpg",
-        "http://coverartarchive.org/release/d0edc24b-f201-3076-b015-e54401239a8f/13692812190.jpg",
-        "http://coverartarchive.org/release/d0edc24b-f201-3076-b015-e54401239a8f/13692813106.jpg",
-        "http://coverartarchive.org/release/d0edc24b-f201-3076-b015-e54401239a8f/13692814629.jpg",
-        "http://coverartarchive.org/release/d0edc24b-f201-3076-b015-e54401239a8f/13692816648.jpg",
-        "http://coverartarchive.org/release/d0edc24b-f201-3076-b015-e54401239a8f/13692818177.jpg",
-        "http://coverartarchive.org/release/d0edc24b-f201-3076-b015-e54401239a8f/13692819321.jpg",
-        "http://coverartarchive.org/release/d0edc24b-f201-3076-b015-e54401239a8f/13692821419.jpg",
-        "http://coverartarchive.org/release/d0edc24b-f201-3076-b015-e54401239a8f/13692822303.jpg",
-        "http://coverartarchive.org/release/d0edc24b-f201-3076-b015-e54401239a8f/13692823976.jpg",
-        "http://coverartarchive.org/release/d0edc24b-f201-3076-b015-e54401239a8f/13692827412.jpg",
-        "http://coverartarchive.org/release/d0edc24b-f201-3076-b015-e54401239a8f/13692830127.jpg",
-        "http://coverartarchive.org/release/d0edc24b-f201-3076-b015-e54401239a8f/13692832110.jpg",
-        "http://coverartarchive.org/release/d0edc24b-f201-3076-b015-e54401239a8f/13692833384.jpg",
-        "http://coverartarchive.org/release/d0edc24b-f201-3076-b015-e54401239a8f/13692836146.jpg"
-      ]
-    },
-    {
-      "id": "e683880a-b1d7-3599-9f70-680ac56d8667",
-      "title": "Garage Inc.",
-      "images": [
-        "http://coverartarchive.org/release/7f5a52aa-4429-4771-80ec-6c6a545b0df9/11162732155.jpg",
-        "http://coverartarchive.org/release/7f5a52aa-4429-4771-80ec-6c6a545b0df9/5985906624.jpg",
-        "http://coverartarchive.org/release/7f5a52aa-4429-4771-80ec-6c6a545b0df9/19037635415.jpg"
-      ]
-    },
-    {
-      "id": "e8f70201-8899-3f0c-9e07-5d6495bc8046",
-      "title": "Metallica",
-      "images": [
-        "http://coverartarchive.org/release/2529f558-970b-33d2-a42c-41ab15a970c6/8202912235.jpg"
-      ]
-    },
-    {
-      "id": "ea0612d0-f425-3d20-b124-66c0a4862643",
-      "title": "New Skulls for the Old Ceremony",
-      "images": [
-        "http://coverartarchive.org/release/6cb60625-fa55-4594-90e8-c9f53437c907/1288562726.jpg"
-      ]
     },
     {
       "id": "f44f4f73-a714-31a1-a4b8-bfcaaf311f50",
@@ -235,6 +194,47 @@
         "http://coverartarchive.org/release/a89e1d92-5381-4dab-ba51-733137d0e431/15674157159.jpg",
         "http://coverartarchive.org/release/a89e1d92-5381-4dab-ba51-733137d0e431/15674157532.jpg"
       ]
+    },
+    {
+      "id": "67553e23-8dad-3792-b6f2-8fedd5650ff3",
+      "title": "…and Justice for All",
+      "images": [
+        "http://coverartarchive.org/release/da53e497-8c61-4d4a-a29b-a5b53d86ccb7/7476858115.jpg",
+        "http://coverartarchive.org/release/da53e497-8c61-4d4a-a29b-a5b53d86ccb7/7476859014.jpg"
+      ]
+    },
+    {
+      "id": "e683880a-b1d7-3599-9f70-680ac56d8667",
+      "title": "Garage Inc.",
+      "images": [
+        "http://coverartarchive.org/release/7f5a52aa-4429-4771-80ec-6c6a545b0df9/11162732155.jpg",
+        "http://coverartarchive.org/release/7f5a52aa-4429-4771-80ec-6c6a545b0df9/5985906624.jpg",
+        "http://coverartarchive.org/release/7f5a52aa-4429-4771-80ec-6c6a545b0df9/19037635415.jpg"
+      ]
+    },
+    {
+      "id": "88032b2b-dd3b-36a8-9fe0-de720fb451fd",
+      "title": "Ultra Rare Trax",
+      "images": []
+    },
+    {
+      "id": "8695e5b2-4c2f-4faf-9faa-bf7ae603e12d",
+      "title": "Garage Days Pt. II",
+      "images": []
+    },
+    {
+      "id": "c68f2af8-cf49-357e-bcce-5da72fae4756",
+      "title": "Covering 'em",
+      "images": [
+        "http://coverartarchive.org/release/5e5f6a3f-d519-475f-bd6c-b302690c3a9f/5576625018.jpg",
+        "http://coverartarchive.org/release/5e5f6a3f-d519-475f-bd6c-b302690c3a9f/5576626486.jpg",
+        "http://coverartarchive.org/release/5e5f6a3f-d519-475f-bd6c-b302690c3a9f/5576627065.jpg"
+      ]
+    },
+    {
+      "id": "6d4b4468-16dc-3e19-91c6-2a394ac99762",
+      "title": "Heavy Best",
+      "images": []
     }
   ]
 }
