@@ -1,12 +1,12 @@
 # Viaplay worksample Test
-The project implements a REST API for providing clients with information about a specific music artist responding to an HTTP Get request.
+This project implements a REST API for providing clients with information about a specific music artist responding to an HTTP Get request.
 ``` java
 http://<server ip>:8080/api/v1/artistinfo/{mbid}
 ```
 Value of `{mbid}` represents the artist identifier in [MusicBrainz identifier](https://musicbrainz.org/doc/MusicBrainz_Identifier) format.
 
 On success, the REST API will return HTTP status code `200` and the response body will contain the artist information including artist mbid, profile description and all released albums with links to their cover art images owned by the artist in the following JSON format:
-```json
+```
 {
   "mbid": "string", // artist mbid from the request
   "description": "string", // a text description fetched from Discogs.com
@@ -26,15 +26,15 @@ On success, the REST API will return HTTP status code `200` and the response bod
 In order to compile the response of the artist information, the following 3rd party REST APIs are used:
 
 * MusicBrainz Artist API to get information of albums and other related sources of the artist:
-```json
+```
 http://musicbrainz.org/ws/2/artist/{mbid}?&fmt=json&inc=url-rels+release-groups
 ```
 * Cover Art Archive API to get all the http links to the cover art images of a specific album:
-```json
+```
 http://coverartarchive.org/release-group/{album mbid}
 ``` 
 * Discogs API to get profile description text for the artist:
-```json
+```
 https://api.discogs.com/artists/{discogs artist id}
 ```
 
@@ -46,7 +46,7 @@ In case of error, the REST API will return the following HTTP status codes:
 * 503 - API Rate Limit Reached
 
 The JSON reponse body will show more concrete error information, e.g.
-```json
+```
 {
     "timestamp": "2018-03-12T19:07:30.588+0100",
     "status": 400,
@@ -121,7 +121,7 @@ In order to fetch the artist information, we need to make the following external
 * one call to Discogs API to get the profile description information
 * for each album, make one call to CoverArtArchive API to fetch its image links
 
-So for each incoming request, we need to make 1 + 1 + number of albums external REST API calls in total, 
+So for each incoming request, we need to make 1 + 1 + numberOfAlbums external REST API calls in total, 
 and running all these calls in sequence will significant increase the response time due to network latency.
 
 In the implementation, the Discogs API call and all the CoverArtArchive API calls will be executed in parallel separated threads.
@@ -152,7 +152,7 @@ public Executor asyncExecutor() {
 }
 ```
 And in `application.properties` we can define the size and queue capacity of the thread pool:
-```java
+```
 # thread pool config
 threadpool.size=20
 threadpool.capacity=500
@@ -189,18 +189,20 @@ so next time the same artist is queried, the cache will be hitted and cached res
 In this implementation, I just add the support for the Spring simple cache provider which uses concurrent maps in memory as the cache storage.
 Methods that perform external REST API calls are marked with Spring `@Cacheable` annotation. When an artist is queried, only the first request will trigger external API calls.
 
-**This simple cache solution has the drawback that cached data will never expire and can not be updated, and the cache storage is in local memory. It is only intended to show how cache can help improving response time here. Improvement here would be to integrate external cache storage e.g. Redis to the Spring Boot application.**
+**This simple cache solution has the drawback that cached data will never expire and can not be updated, the cache storage is in local memory and has the same life cycle as the application instance. It is only intended to show how cache can help improving response time here. Improvement here would be to integrate external cache storage e.g. Redis to the Spring Boot application.**
 
-### Rate Limiting
+### Rate Limiting for Service Availability
 One requirement of the REST service is to survive a high traffic load during peak time. 
-And the challenge here is that the following external REST APIs have rate limiting:
+And one challenge here is that the following external REST APIs have rate limiting:
 
 * MusicBrainz API: allow 1 request per second per IP
 * Discogs API: allow 60 requests per minute for authenticated client and 25 requests per minute for unauthenticated user
 
 These API endpoints will return `503` Service Unavailable error when our traffic hit their limits, and even leads to further blocking of our client.
-In addition to the approaches mentioned previously to reduce response time, rate limiting feature can also be introduced here
-to protect our REST API endpoint from the attach of high traffic load as well as avoid exceeding the rate limits of our dependent services.
+In addition to the cache approach mentioned previously, rate limiting feature can also be introduced here
+to avoid exceeding the rate limits of our dependent services.
+
+Rate limiting also protects the system befind the REST APIs against overloaded traffic. In case of peak traffic or DoS attack, overloaded client requests will be rejected in a polite manner to allow them regulate their traffic to a lower velocity. The benefit is to ensure the availability of the service even under high traffic that might bring the whole system down.
 
 [Google guava rate limiter](https://google.github.io/guava/releases/19.0/api/docs/index.html?com/google/common/util/concurrent/RateLimiter.html) class implements a rate limiter that distributes permits at a configurable rate and is used here to implement a very simple rate limiter in this application.
 The implementation is in class `RateLimitHandler.java`.
@@ -259,7 +261,7 @@ As mentioned earlier, the application will return the following error responses:
 * 503 - API Rate Limit Reached
 
 All error reponse body will be compiled into the following JSON format, e.g.
-```json
+```
 {
     "timestamp": "2018-03-12T19:07:30.588+0100", // timestamp of the error
     "status": 400, // http response status code
@@ -270,6 +272,17 @@ All error reponse body will be compiled into the following JSON format, e.g.
 ```
 
 Class `RestExceptionHandler.java` registers global exception handlers for the application. Internal runtime exceptions will be caught by corresponding exception handler methods here and get transformed into proper error response body.
+
+The REST service also deals with the error when accessing those external REST APIs. The `CoverArtRestErrorHandler`, `DiscogsRestErrorHandler` and `MusicBrainzRestHandler` handles exceptions triggered when trying to access those APIs
+and convert them into customized internal exceptions that will be caught and handled properly in the service layer.
+
+For example, when Discogs API is not accessible, the REST API will return the artist information with description field as `null`.
+```java
+ArtistProfile profile = profileFuture.get();
+ArtistInfoDto artistInfoDto = new ArtistInfoDto(mbid, profile != null ? profile.getProfile() : null);
+``` 
+
+When CoverArtArchive API can not find the album image links, then it will appear as an empty array field of album images in `artistinfo` REST API response body for that specific album.
 
 ### Request Parameter Validation
 The artist mbid sent in the request is going to be validated in order to reject invalid request earlier before sending it to any external REST services.
