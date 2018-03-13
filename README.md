@@ -96,7 +96,7 @@ mvn clean test -Pcucumber-test
 ```
 The cucumber html test reports can be found under `<project root>/target/reports/cucumber/html` folder and can be opened in a local browser.
 
-With Spring MockMvc, the application will be booted up automatically on a random local port. And the system test can therefore run in a standalone mode without an pre-running application. 
+When running the system test, the application will be booted up automatically on a random local port. And the system test can therefore run in a standalone mode without an pre-running application. 
 
 **The positve system test case verification relies on predefined local json strings. Sometimes it may fail due to artist information has been updated in related data sources. In such case, local json string in the test resource file needs to be updated.**
 
